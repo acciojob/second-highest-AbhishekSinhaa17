@@ -1,19 +1,46 @@
-function secondHighest(arr) {
-  arr = arr.map(Number);
+ function secondHighest(arr) {
 
-  if (arr.length < 2) return -Infinity;
+    const nums = arr.map(v => {
 
-  let max = -Infinity;
-  let second = -Infinity;
+      const n = Number(v);
+      return Number.isNaN(n) ? null : n;
+    }).filter(x => x !== null);
 
-  for (let num of arr) {
-    if (num > max) {
-      second = max;
-      max = num;
-    } else if (num > second && num < max) {
-      second = num;
+    if (nums.length < 2) return "-Infinity";
+
+    let max = -Infinity;
+    let second = -Infinity;
+
+    for (const num of nums) {
+      if (num > max) {
+        second = max;
+        max = num;
+      } else if (num > second && num < max) {
+        second = num;
+      }
     }
+
+    if (second === -Infinity) return "-Infinity";
+
+    return String(second);
   }
 
-  return second === -Infinity ? -Infinity : second;
-}
+  function Main() {
+
+    let nRaw = prompt("Enter the number of elements");
+
+    const n = Number(nRaw);
+    if (!Number.isFinite(n) || n <= 0) {
+      alert("-Infinity");
+      return;
+    }
+
+    const arr = [];
+    for (let i = 0; i < n; i++) {
+      arr[i] = prompt("Enter element " + (i + 1));
+    }
+
+    alert(secondHighest(arr));
+  }
+
+  Main();
